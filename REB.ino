@@ -1,20 +1,17 @@
-#define TX_PIN 23 // Пин для передачи данных (D23)
+#define TX_PIN 23
 
-// Параметры генерации сигнала
-int minHighDuration = 50;  // Минимальная длина HIGH
-int maxHighDuration = 400; // Максимальная длина HIGH
-int minLowDuration = 50;   // Минимальная длина LOW
-int maxLowDuration = 400;  // Максимальная длина LOW
+int minHighDuration = 50;  
+int maxHighDuration = 400; 
+int minLowDuration = 50;   
+int maxLowDuration = 400;  
 
-// Функция для генерации случайных длительностей импульсов
 int getRandomDelay(int minDelay, int maxDelay) {
   return random(minDelay, maxDelay);
 }
 
-// Функция для динамической амплитудной модуляции (AM)
 void amplitudeModulation(int cycles) {
-  Serial.println("=== Начало амплитудной модуляции (AM) ===");
-  Serial.print("Количество циклов модуляции: ");
+  Serial.println("=== Початок амплітудної модуляції (AM) ===");
+  Serial.print("Кількість циклів модуляції: ");
   Serial.println(cycles);
   
   for (int i = 0; i < cycles; i++) {
@@ -29,19 +26,18 @@ void amplitudeModulation(int cycles) {
     Serial.print(lowDuration);
     Serial.println(" мкс");
 
-    analogWrite(TX_PIN, 255); // Максимальная мощность
+    analogWrite(TX_PIN, 255);
     delayMicroseconds(highDuration);
-    analogWrite(TX_PIN, 127); // Половинная мощность (модуляция)
+    analogWrite(TX_PIN, 127);
     delayMicroseconds(lowDuration);
   }
-  Serial.println("=== Конец амплитудной модуляции (AM) ===");
+  Serial.println("=== Кінець амплітудної модуляції (AM) ===");
 }
 
-// Функция для генерации паттернов помех с динамической мощностью и задержками
 void generateAdvancedNoise() {
-  int noiseDuration = random(3000, 7000); // Длительность шума (в мс)
-  Serial.println("=== Генерация сложных паттернов помех ===");
-  Serial.print("Длительность шума: ");
+  int noiseDuration = random(3000, 7000); 
+  Serial.println("=== Генерація складних патернів перешкод ===");
+  Serial.print("Тривалість перешкод: ");
   Serial.print(noiseDuration);
   Serial.println(" мс");
   
@@ -63,67 +59,61 @@ void generateAdvancedNoise() {
     digitalWrite(TX_PIN, LOW);
     delayMicroseconds(lowDuration);
 
-    // Меняем параметры каждые 200 циклов
     if (i % 200 == 0) {
       minHighDuration = random(30, 100);
       maxHighDuration = random(300, 600);
       minLowDuration = random(30, 100);
       maxLowDuration = random(300, 600);
-      Serial.println("Изменение параметров HIGH/LOW длительностей");
+      Serial.println("Зміна параметрів тривалості HIGH/LOW");
     }
   }
-  Serial.println("=== Конец генерации помех ===");
+  Serial.println("=== Кінець генерації перешкод ===");
 }
 
-// Функция для изменения амплитуды сигнала
 void advancedSignalModulation() {
-  int modulationCycles = random(5, 15); // Количество циклов модуляции
-  Serial.println("=== Начало сложной модуляции сигнала (АМ) ===");
-  Serial.print("Количество циклов модуляции: ");
+  int modulationCycles = random(5, 15); 
+  Serial.println("=== Початок складної модуляції сигналу (AM) ===");
+  Serial.print("Кількість циклів модуляції: ");
   Serial.println(modulationCycles);
   
   for (int i = 0; i < modulationCycles; i++) {
-    Serial.print("Амплитудная модуляция, цикл ");
+    Serial.print("Амплітудна модуляція, цикл ");
     Serial.println(i + 1);
     
-    // Применение амплитудной модуляции
     amplitudeModulation(random(500, 1000));
 
-    // Паузы между сериями
     int delayDuration = random(500, 1000);
-    Serial.print("Пауза между сериями: ");
+    Serial.print("Пауза між серіями: ");
     Serial.print(delayDuration);
     Serial.println(" мс");
     
     delay(delayDuration);
   }
-  Serial.println("=== Конец сложной модуляции сигнала (АМ) ===");
+  Serial.println("=== Кінець складної модуляції сигналу (AM) ===");
 }
 
 void setup() {
-  pinMode(TX_PIN, OUTPUT);  // Настраиваем пин D23 как выход
-  randomSeed(analogRead(0)); // Инициализация случайного генератора
+  pinMode(TX_PIN, OUTPUT);
+  randomSeed(analogRead(0));
   
-  Serial.begin(115200); // Инициализируем последовательный порт для вывода данных
-  Serial.println("=== Инициализация завершена ===");
+  Serial.begin(115200);
+  Serial.println("=== Ініціалізація завершена ===");
 }
 
 void loop() {
-  Serial.println("=== Новый цикл работы ===");
+  Serial.println("=== Новий цикл роботи ===");
   
-  // Генерация сложных паттернов помех
   generateAdvancedNoise();
-  int noisePause = random(1000, 3000); // Пауза между сериями
-  Serial.print("Пауза перед следующей серией помех: ");
+  int noisePause = random(1000, 3000); 
+  Serial.print("Пауза перед наступною серією перешкод: ");
   Serial.print(noisePause);
   Serial.println(" мс");
   
   delay(noisePause);
 
-  // Сложная модуляция сигнала (АМ)
   advancedSignalModulation();
-  int modPause = random(1000, 3000); // Пауза перед следующим циклом
-  Serial.print("Пауза перед следующим циклом модуляции: ");
+  int modPause = random(1000, 3000); 
+  Serial.print("Пауза перед наступним циклом модуляції: ");
   Serial.print(modPause);
   Serial.println(" мс");
   
