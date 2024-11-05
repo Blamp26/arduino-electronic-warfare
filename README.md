@@ -1,7 +1,9 @@
 Arduino scheme:
 
-VCC -> 3.3V
-
-GND -> GND
-
-DATA -> D23
+VCC → 3.3V
+GND → GND
+CE → GPIO 22
+CSN → GPIO 21
+SCK → GPIO 18
+MOSI → GPIO 23
+MISO → GPIO 19
