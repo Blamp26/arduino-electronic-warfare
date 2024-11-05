@@ -45,6 +45,7 @@ void setup()
 {
   Serial.begin(115200);               // Ініціалізація серійного зв’язку
   radio.begin();                      // Ініціалізація модуля RF24
+  testConnection();                   // Перевірка підключення модуля
   radio.startListening();             // Переходимо в режим прийому
   radio.stopListening();              // Завершуємо режим прийому
 
@@ -61,6 +62,14 @@ void setup()
   Serial.println();
   Serial.println("Відображення каналів");
   printChannels();                     // Вивід каналів у консоль
+}
+
+void testConnection() {
+  if (radio.isChipConnected()) {
+    Serial.println("Модуль nRF24L01 підключений та працює.");
+  } else {
+    Serial.println("Помилка: модуль nRF24L01 не виявлено. Перевірте підключення.");
+  }
 }
 
 // Функція для встановлення значення в регістр модуля nRF24L01
